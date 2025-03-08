@@ -73,5 +73,5 @@
     {%- endif %}
 {%- endfor %}
 {%- if add_generation_prompt and messages[-1].role != "assistant" %}
-    {{- '<|im_start|>assistant\n<think>\n' }}
+    {{- '<|im_start|>assistant\n' }}
 {%- endif %}
