@@ -1,0 +1,30 @@
+# Don't Think Too Much (DTTM) Proxy
+
+Qwen/QwQ-32B is a great model, but it tends to think for a long time. OpenAI models have a reasoning_effort parameter, Anthropic models have a thinking.budget_tokens option, however, with open-source llms there isn't a builting system to decide for how long and for how many tokens the llm thinks.
+
+## Quickstart
+
+Clone the repo, run `yarn install` and then `yarn start`.
+
+Open LM Studio, configure Qwen/QwQ-32B to use this [template](https://gist.github.com/tomasmcm/6fd3397eb44e3fbef4cf876451098a92) and start the Dev Server.
+
+```sh
+curl http://localhost:3000/proxy/localhost:1234/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwq-32b@4bit",
+    "messages": [
+      { "role": "user", "content": "What day is it today?" }
+    ],
+    "temperature": 0.5,
+    "stream": true,
+    "max_thinking_chars": 200
+}'
+```
+
+## How this works
+
+The proxy only cares about the `max_thinking_chars` parameter. If it is defined, the proxy starts counting the characters after `<think>` until a `</think>`. If the model continues thinking past the max number of chars, the proxy aborts the request and creates a new using using the existing `<think>...</think>` process as a prefilled assistant message.
+
+In order for this to work, you need to update the LLM chat template. The default template does not allow prefilled messages because it wraps every message in `'<|im_start|>' + message.role + '\n'` and `'<|im_end|>' + '\n'`, and adds `'<|im_start|>assistant\n<think>\n'` at the end of all the messages.
+This template (https://gist.github.com/tomasmcm/6fd3397eb44e3fbef4cf876451098a92) checks if there is an assistant message as the last message and allows the LLM to continue the generation as if it was the same message.
