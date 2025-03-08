@@ -1,6 +1,6 @@
 # Don't Think Too Much (DTTM) Proxy
 
-Qwen/QwQ-32B is a great model, but it tends to think for a long time. OpenAI models have a reasoning_effort parameter, Anthropic models have a thinking.budget_tokens option, however, with open-source llms there isn't a builting system to decide for how long and for how many tokens the llm thinks.
+Qwen/QwQ-32B is a great model, but it tends to think for a long time. OpenAI models have a reasoning_effort parameter, Anthropic models have a thinking.budget_tokens option, however, with open-source llms there isn't a built-in system to decide for how long and for how many tokens the llm thinks.
 
 ## Quickstart
 
@@ -28,3 +28,8 @@ The proxy only cares about the `max_thinking_chars` parameter. If it is defined,
 
 In order for this to work, you need to update the LLM chat template. The default template does not allow prefilled messages because it wraps every message in `'<|im_start|>' + message.role + '\n'` and `'<|im_end|>' + '\n'`, and adds `'<|im_start|>assistant\n<think>\n'` at the end of all the messages.
 This template (https://gist.github.com/tomasmcm/6fd3397eb44e3fbef4cf876451098a92) checks if there is an assistant message as the last message and allows the LLM to continue the generation as if it was the same message.
+This method only works with streaming as it allows halting the generation in the middle. It should also work with DeepSeek R1 and Distilled version (might just need some adjusting of the `<think>` tags and new lines).
+
+## Can I use this with other providers?
+
+Currently this only works with LLM servers that allow prefilling assistant messages. Some providers like Groq support this with some models (doesn't seem Qwen/QwQ-32B is support yet). When using local servers you can configure the chat template to allow prefilling.
