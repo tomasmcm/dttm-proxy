@@ -4,7 +4,7 @@
   <img src="/assets/logo.png" alt="DTTM Logo" width="250" height="250">
 </p>
 
-Qwen/QwQ-32B is a great model, but it tends to think for a long time. OpenAI models have a reasoning_effort parameter, Anthropic models have a thinking.budget_tokens option, however, with open-source llms there isn't a built-in system to decide for how long and for how many tokens the llm thinks.
+Qwen/QwQ-32B is a great model, but it tends to think for a long time. OpenAI models have a `reasoning_effort` parameter, Anthropic models have a `thinking.budget_tokens` option, however, with open-source llms there isn't a built-in system to decide for how long and for how many tokens the llm thinks.
 
 ## Quickstart
 
