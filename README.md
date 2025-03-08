@@ -37,3 +37,8 @@ This method only works with streaming as it allows halting the generation in the
 ## Can I use this with other providers?
 
 Currently this only works with LLM servers that allow prefilling assistant messages. Some providers like Groq support this with some models (doesn't seem Qwen/QwQ-32B is support yet). When using local servers you can configure the chat template to allow prefilling.
+
+<br/>
+<br/>
+
+Logo was generated with prithivMLmods/Ton618-Only-Stickers-Flux-LoRA using the prompt "Only Sticker, An robot queen with questions logo with the words "Don't Think Too Much" written on it".
